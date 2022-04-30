@@ -15,14 +15,7 @@ interface DiagramProps {
 const DiagramWrapper = (props: DiagramProps) => {
   const diagramRef = React.createRef() as React.LegacyRef<ReactDiagram> | null;
 
-  React.useEffect(() => {
-    initDiagram2();
-  }, [])
-
   const $ = go.GraphObject.make;
-
-
-
 
   const sharedModel: go.TreeModel = $(go.TreeModel,
     {
@@ -36,72 +29,7 @@ const DiagramWrapper = (props: DiagramProps) => {
     });
 
 
-  // const initDiagram1 = (): go.Diagram => {
-  //   const myDiagram = $(go.Diagram, {
-  //     'undoManager.isEnabled': true,  // must be set to allow for model change listening
-  //     // 'undoManager.maxHistoryLength': 0,  // uncomment disable undo/redo functionality
-  //     layout:
-  //       $(go.TreeLayout,
-  //         {
-  //           alignment: go.TreeLayout.AlignmentStart,
-  //           angle: 0,
-  //           compaction: go.TreeLayout.CompactionNone,
-  //           layerSpacing: 16,
-  //           layerSpacingParentOverlap: 1,
-  //           nodeIndentPastParent: 1.0,
-  //           nodeSpacing: 0,
-  //           setsPortSpot: false,
-  //           setsChildPortSpot: false
-  //         }),
-  //     model: sharedModel
-  //   });
-
-
-  // // define a simple Node template
-  // myDiagram.nodeTemplate = $(go.Node,
-  //   {
-  //     selectionAdorned: false,
-  //     doubleClick: function(e, obj) {
-  // console.log("doubleClick ----- working fine");
-  //   var cmd = myDiagram.commandHandler;
-  //   var node = obj as go.Node;
-  //   if (node.isTreeExpanded) {
-  //     if (!cmd.canCollapseTree(node)) return;
-  //   } else {
-  //     if (!cmd.canExpandTree(node)) return;
-  //   }
-  //   e.handled = true;
-  //   if (node.isTreeExpanded) {
-  //     cmd.collapseTree(node);
-  //   } else {
-  //     cmd.expandTree(node);
-  //   }
-  // }
-  // },
-  // new go.Binding("isSelected", "sel").makeTwoWay(),
-  // $("TreeExpanderButton",
-  //   { // customize the button's appearance
-  //     "_treeExpandedFigure": "ExpandedLine",
-  //     "_treeCollapsedFigure": "CollapsedLine",
-  //     "ButtonBorder.fill": "whitesmoke",
-  //     "ButtonBorder.stroke": null,
-  //     "_buttonFillOver": "rgba(0,128,255,0.25)",
-  //     "_buttonStrokeOver": null
-  //   }
-  // ),
-  //   $(go.TextBlock,
-  //     { position: new go.Point(18, 2), font: '9pt Verdana, sans-serif' },
-  //     new go.Binding("text", "name"),
-  //     new go.Binding("background", "isSelected", function (s) { return (s ? "lightblue" : "white"); }).ofObject()
-  //   )
-  // );  // end Node
-
-  // myDiagram.linkTemplate = $(go.Link);
-
-  // return myDiagram;
-  // }
-
-  const initDiagram2 = (): go.Diagram => {
+  const initDiagram = (): go.Diagram => {
     const diagram = $(go.Diagram,
       {
         'undoManager.isEnabled': true,  // must be set to allow for model change listening
@@ -324,7 +252,7 @@ const DiagramWrapper = (props: DiagramProps) => {
       {diagramRef ? (<ReactDiagram
         ref={diagramRef}
         divClassName='diagram-component-2'
-        initDiagram={initDiagram2}
+        initDiagram={initDiagram}
         nodeDataArray={props.nodeDataArray}
         onModelChange={props.onModelChange}
         skipsDiagramUpdate={props.skipsDiagramUpdate}
